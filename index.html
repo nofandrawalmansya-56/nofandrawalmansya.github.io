@@ -211,25 +211,32 @@
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-md-6 mb-3">
-                        <form>
-                            <form>
+                      <div class="alert alert-warning alert-dismissible fade show d-none" role="alert">
+                        <strong>Sukses dikirim</strong>Terimakasih Pesan anda telah kami terima
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                      </div>
+
+                            <form name="nofandra-contak-form">
                                 <div class="mb-3">
                                   <label for="name" class="form-label">Masukan nama</label>
-                                  <input type="text" class="form-control" id="name" aria-describedby="name">
+                                  <input type="text" class="form-control" id="name" aria-describedby="name"name="nama">
                                   <div class="mb-3">
                                     <label for="email" class="form-label">Masukan Email</label>
-                                    <input type="email" class="form-control" id="email" aria-describedby="email">
+                                    <input type="email" class="form-control" id="email" aria-describedby="email"name="email">
 
                                     <div class="mb-3">
                                         <label for="pesan" class="form-label">Pesan</label>
-                                        <textarea class="form-control" id="pesan" rows="3">Kirim</textarea>
+                                        <textarea class="form-control" id="pesan" rows="3"name="pesan"></textarea>
                                       </div>
-                                    <br>
-                               
+                                      <br>
+                                      <button type="submit" class="btn btn-primary btn-kirim">Kirim</button>
+
+                                      <button class="btn btn-primary btn-loading d-none" type="button" disabled>
+                                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                        Loading...
+                                      </button>
+                
                              
-                            
-                            
-                            <button type="submit" class="btn btn-primary">Submit</button>
                           </form>
                     </div>
                 </div>
@@ -261,5 +268,38 @@
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
       crossorigin="anonymous"
     ></script>
+
+
+    <!--printah membuat googlesheet-->
+
+    <script>
+      const scriptURL = 'https://script.google.com/macros/s/AKfycbyfP9epPcP7rpkjnbdY6gH8-AYrj7u6rFed4Y1DjX-g9Ukg89dIFf7-7W_WDMyhfEjn/exec'
+      const form = document.forms['nofandra-contak-form']
+      const btnKirim = document.querySelector('.btn-kirim');
+      const btnLoading = document.querySelector('.btn-loading');
+      const myAlert = document.querySelector('.alert');
+    
+      form.addEventListener('submit', e => {
+        e.preventDefault()
+        //ketika tombol submit diklik maka akan menampilkan tombol loading dan menghilangkan tombol kirim
+        btnLoading.classList.toggle('d-none');
+        btnKirim.classList.toggle('d-none');
+        myAlert.classList.toggle('none');
+        fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+          .then(response => { 
+          //tampilkan tombol kirim hilangkan tombol loading
+            btnLoading.classList.toggle('d-none');
+            btnKirim.classList.toggle('d-none');
+            //tampilkam alert untuk pesan sudah diterima
+            myAlert.classList.toggle('d-none');
+            //reset formnya
+            form.reset();
+            console.log('Success!', response)})
+          .catch(error => console.error('Error!', error.message))
+      });
+    </script>
+ <!-- akhir printah membuat googlesheet-->
+
+
   </body>
 </html>
