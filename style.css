@@ -3,14 +3,6 @@
   background-color: #e2edff;
 }
 
-.jumbotron {
-  background: url(img/3.jpg);
-  background-size: cover;
-  height: 540px;
-  position: relative;
-  z-index: -1;
-}
-
 /**kalau id harus pake tanda pagar **/
 #projects {
   background-color: #e2edff;
