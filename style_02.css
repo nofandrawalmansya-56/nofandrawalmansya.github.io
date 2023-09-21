@@ -8,14 +8,14 @@
   background: url(img/3.jpg);
   background-size: cover;
   height: 540px;
-  margin-top: 0px;
+  margin-top: -90px;
   position: relative;
   z-index: -1;
 }
 
 .keyboard-box {
   position: relative;
-
+  background-color: #0c6efd;
   border-radius: 10px;
   height: 300px;
   transform-style: preserve-3d;
